@@ -97,11 +97,14 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
 example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
   calc
     (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
-      sorry
+      rw [mul_add, add_mul, add_mul]
     _ = a * a + (b * a + a * b) + b * b := by
-      sorry
+      rw [add_assoc]
+      rw [← add_assoc (b * a) (a * b) (b * b)]
+      rw [← add_assoc]
     _ = a * a + 2 * (a * b) + b * b := by
-      sorry
+      rw [mul_comm b a]
+      rw [← two_mul]
 
 end
 
@@ -110,7 +113,14 @@ section
 variable (a b c d : ℝ)
 
 example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
-  sorry
+  rw [mul_add, add_mul, add_mul]
+  rw [add_assoc]
+  rw [← add_assoc (b * c) (a * d) (b * d)]
+  rw [add_comm (b * c) (a * d)]
+  rw [add_assoc]
+  rw [← add_assoc (a * d) (b * c) (b * d)]
+  rw [← add_assoc]
+  rw [← add_assoc]
 
 example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
   sorry

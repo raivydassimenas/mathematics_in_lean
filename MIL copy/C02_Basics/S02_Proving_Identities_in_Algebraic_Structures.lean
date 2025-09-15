@@ -82,7 +82,9 @@ theorem neg_zero : (-0 : R) = 0 := by
   rw [add_zero]
 
 theorem neg_neg (a : R) : - -a = a := by
-  sorry
+  rw [← add_zero (-a), neg_add, neg_zero, ← sub_self a, sub_eq_add_neg, add_comm (a) (-a), neg_add_cancel_left]
+
+
 
 end MyRing
 

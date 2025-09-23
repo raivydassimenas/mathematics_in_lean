@@ -45,8 +45,10 @@ example (x : ℝ) : x ≤ x :=
 -- Try this.
 example (h₀ : a ≤ b) (h₁ : b < c) (h₂ : c ≤ d) (h₃ : d < e) : a < e := by
   apply lt_of_le_of_lt h₀
-  apply lt_of_lt_of_le h₁
-  
+  apply lt_trans h₁
+  apply lt_of_le_of_lt h₂ h₃
+
+
 
 example (h₀ : a ≤ b) (h₁ : b < c) (h₂ : c ≤ d) (h₃ : d < e) : a < e := by
   linarith

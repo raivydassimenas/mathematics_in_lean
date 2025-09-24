@@ -106,10 +106,11 @@ example (h : a ≤ b) : log (1 + exp a) ≤ log (1 + exp b) := by
   apply log_le_log h₀
   apply add_le_add_left
   exact exp_le_exp.mpr h
-  
+
 example : 0 ≤ a ^ 2 := by
-  -- apply?
-  exact sq_nonneg a
+  apply sq_nonneg
+
+  -- exact sq_nonneg a
 
 example (h : a ≤ b) : c - exp b ≤ c - exp a := by
   sorry

@@ -46,7 +46,19 @@ example : max a b = max b a := by
     apply le_max_left
 
 example : min (min a b) c = min a (min b c) := by
-  sorry
+  apply le_antisymm
+  repeat
+    apply le_min
+    apply min_le_of_left_le
+    apply min_le_left
+    apply le_min
+    apply min_le_of_left_le
+    apply min_le_right
+    apply le_min
+    apply min_le_right (min a b) c
+    
+
+
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
   sorry
 example : min a b + c = min (a + c) (b + c) := by

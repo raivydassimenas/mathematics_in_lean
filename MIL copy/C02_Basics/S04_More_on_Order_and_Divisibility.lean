@@ -110,7 +110,14 @@ example : x ∣ x ^ 2 := by
   apply dvd_mul_left
 
 example (h : x ∣ w) : x ∣ y * (x * z) + x ^ 2 + w ^ 2 := by
-  sorry
+  apply dvd_add
+  · apply dvd_add
+    · apply dvd_mul_of_dvd_right
+      apply dvd_mul_right
+    apply dvd_mul_left
+  rw [pow_two]
+  apply dvd_mul_of_dvd_left
+  exact h
 end
 
 section

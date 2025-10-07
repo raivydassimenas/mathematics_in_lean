@@ -36,11 +36,33 @@ variable (x y z : α)
 #check (sup_le : x ≤ z → y ≤ z → x ⊔ y ≤ z)
 
 example : x ⊓ y = y ⊓ x := by
-  sorry
+  apply le_antisymm
+  · apply le_inf
+    · apply inf_le_right
+    · apply inf_le_left
+  · apply le_inf
+    · apply inf_le_right
+    · apply inf_le_left
 
 example : x ⊓ y ⊓ z = x ⊓ (y ⊓ z) := by
-  sorry
-
+  apply le_antisymm
+  · apply le_inf
+    · apply inf_le_of_left_le
+      apply inf_le_left
+    · apply le_inf
+      · apply inf_le_of_left_le
+        apply inf_le_right
+      · apply inf_le_of_right_le
+        apply le_refl
+  · apply le_inf
+    · apply le_inf
+      · apply inf_le_of_left_le
+        apply le_refl
+      · apply inf_le_of_right_le
+        apply inf_le_left
+    · apply inf_le_of_right_le
+      apply inf_le_right
+      
 example : x ⊔ y = y ⊔ x := by
   sorry
 
@@ -109,4 +131,3 @@ example (x y : X) : 0 ≤ dist x y := by
   sorry
 
 end
-

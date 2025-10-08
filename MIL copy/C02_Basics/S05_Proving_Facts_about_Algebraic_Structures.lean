@@ -62,13 +62,33 @@ example : x ⊓ y ⊓ z = x ⊓ (y ⊓ z) := by
         apply inf_le_left
     · apply inf_le_of_right_le
       apply inf_le_right
-      
+
 example : x ⊔ y = y ⊔ x := by
-  sorry
+  apply le_antisymm
+  · apply sup_le
+    · apply le_sup_right
+    · apply le_sup_left
+  · apply sup_le
+    · apply le_sup_right
+    · apply le_sup_left
 
 example : x ⊔ y ⊔ z = x ⊔ (y ⊔ z) := by
-  sorry
-
+  apply le_antisymm
+  · apply sup_le
+    · apply sup_le
+      · exact le_sup_left
+      · apply le_sup_of_le_right
+        apply le_sup_left
+    · apply le_sup_of_le_right
+      apply le_sup_right
+  · apply sup_le
+    · apply le_sup_of_le_left
+      apply le_sup_left
+    · apply sup_le
+      · apply le_sup_of_le_left
+        apply le_sup_right
+      · exact le_sup_right
+        
 theorem absorb1 : x ⊓ (x ⊔ y) = x := by
   sorry
 

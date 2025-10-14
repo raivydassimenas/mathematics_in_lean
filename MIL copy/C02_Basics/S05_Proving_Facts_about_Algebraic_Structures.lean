@@ -123,7 +123,7 @@ example (h : ∀ x y z : α, x ⊓ (y ⊔ z) = x ⊓ y ⊔ x ⊓ z) : a ⊔ b �
   rw [h, @inf_comm _ _ (a ⊔ b), absorb1, @inf_comm _ _ (a ⊔ b), h, ← sup_assoc, @inf_comm _ _ c a, absorb2, @inf_comm _ _ c b]
 
 example (h : ∀ x y z : α, x ⊔ y ⊓ z = (x ⊔ y) ⊓ (x ⊔ z)) : a ⊓ (b ⊔ c) = a ⊓ b ⊔ a ⊓ c := by
-  sorry
+  rw [h, @sup_comm _ _ (a ⊓ b), absorb2, @sup_comm _ _ (a ⊓ b), h, ← inf_assoc, @sup_comm _ _ c a, absorb1, @sup_comm _ _ c b]
 
 end
 
@@ -137,10 +137,12 @@ variable (a b c : R)
 #check (mul_nonneg : 0 ≤ a → 0 ≤ b → 0 ≤ a * b)
 
 example (h : a ≤ b) : 0 ≤ b - a := by
-  sorry
+  rw [← sub_self a, sub_eq_add_neg, sub_eq_add_neg]
+  apply add_le_add_right h
 
 example (h: 0 ≤ b - a) : a ≤ b := by
-  sorry
+  rw [← add_zero a, ← sub_add_cancel b a, add_comm (b - a)]
+  apply add_le_add_left h
 
 example (h : a ≤ b) (h' : 0 ≤ c) : a * c ≤ b * c := by
   sorry

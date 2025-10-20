@@ -45,7 +45,7 @@ theorem my_lemma4 :
     |x * y| = |x| * |y| := abs_mul x y
     _ ≤ |x| * ε := by apply mul_le_mul; apply le_refl; linarith; apply abs_nonneg; apply abs_nonneg;
     _ < 1 * ε := by rw [mul_lt_mul_right epos]; linarith
-    _ = ε := one_mul ε 
+    _ = ε := one_mul ε
 
 def FnUb (f : ℝ → ℝ) (a : ℝ) : Prop :=
   ∀ x, f x ≤ a
@@ -63,15 +63,23 @@ example (hfa : FnUb f a) (hgb : FnUb g b) : FnUb (fun x ↦ f x + g x) (a + b) :
   apply hfa
   apply hgb
 
-example (hfa : FnLb f a) (hgb : FnLb g b) : FnLb (fun x ↦ f x + g x) (a + b) :=
-  sorry
+example (hfa : FnLb f a) (hgb : FnLb g b) : FnLb (fun x ↦ f x + g x) (a + b) := by
+  intro x
+  dsimp
+  apply add_le_add
+  · apply hfa
+  · apply hgb
 
-example (nnf : FnLb f 0) (nng : FnLb g 0) : FnLb (fun x ↦ f x * g x) 0 :=
-  sorry
+example (nnf : FnLb f 0) (nng : FnLb g 0) : FnLb (fun x ↦ f x * g x) 0 := by
+  intro x
+  dsimp
+  exact mul_nonneg (nnf x) (nng x)
 
 example (hfa : FnUb f a) (hgb : FnUb g b) (nng : FnLb g 0) (nna : 0 ≤ a) :
-    FnUb (fun x ↦ f x * g x) (a * b) :=
-  sorry
+    FnUb (fun x ↦ f x * g x) (a * b) := by
+  intro x
+  dsimp
+  exact mul_le_mul (hfa x) (hgb x) (nng x) nna
 
 end
 

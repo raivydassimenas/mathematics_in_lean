@@ -158,7 +158,10 @@ example : s ⊆ s := by
 theorem Subset.refl : s ⊆ s := fun x xs ↦ xs
 
 theorem Subset.trans : r ⊆ s → s ⊆ t → r ⊆ t := by
-  sorry
+  intro hrs hst x hr
+  apply hst
+  apply hrs
+  exact hr
 
 end
 

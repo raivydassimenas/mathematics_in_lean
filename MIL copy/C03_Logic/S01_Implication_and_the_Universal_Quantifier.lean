@@ -194,6 +194,9 @@ variable {α : Type*} {β : Type*} {γ : Type*}
 variable {g : β → γ} {f : α → β}
 
 example (injg : Injective g) (injf : Injective f) : Injective fun x ↦ g (f x) := by
-  sorry
+  intro x₁ x₂ h'
+  apply injf
+  apply injg
+  apply h'
 
 end

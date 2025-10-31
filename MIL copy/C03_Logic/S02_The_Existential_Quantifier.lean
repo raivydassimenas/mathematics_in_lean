@@ -51,11 +51,21 @@ example (ubf : FnHasUb f) (ubg : FnHasUb g) : FnHasUb fun x ↦ f x + g x := by
   use a + b
   apply fnUb_add ubfa ubgb
 
+theorem fnLb_add {f g : ℝ → ℝ} {a b : ℝ} (hfa : FnLb f a) (hgb : FnLb g b) :
+  FnLb (fun x ↦ f x + g x) (a + b) :=
+fun x ↦ add_le_add (hfa x) (hgb x)
+
 example (lbf : FnHasLb f) (lbg : FnHasLb g) : FnHasLb fun x ↦ f x + g x := by
-  sorry
+  rcases lbf with ⟨ a, lbfa ⟩
+  rcases lbg with ⟨ b, lbgb ⟩
+  use a + b
+  apply fnLb_add lbfa lbgb
 
 example {c : ℝ} (ubf : FnHasUb f) (h : c ≥ 0) : FnHasUb fun x ↦ c * f x := by
-  sorry
+  rcases ubf with ⟨a, ubfa⟩
+  use c * a
+  intro x
+  exact mul_le_mul_of_nonneg_left (ubfa x) h
 
 example : FnHasUb f → FnHasUb g → FnHasUb fun x ↦ f x + g x := by
   rintro ⟨a, ubfa⟩ ⟨b, ubgb⟩

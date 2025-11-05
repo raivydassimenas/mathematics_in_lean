@@ -139,7 +139,10 @@ example (divab : a ∣ b) (divbc : b ∣ c) : a ∣ c := by
   use d * e; ring
 
 example (divab : a ∣ b) (divac : a ∣ c) : a ∣ b + c := by
-  sorry
+  rcases divab with ⟨d, beq⟩
+  rcases divac with ⟨e, ceq⟩
+  use d + e; rw [beq, ceq]; ring
+
 
 end
 

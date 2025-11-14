@@ -71,7 +71,9 @@ example : ¬∀ {f : ℝ → ℝ}, Monotone f → ∀ {a b}, f a ≤ f b → a �
   linarith
 
 example (x : ℝ) (h : ∀ ε > 0, x < ε) : x ≤ 0 := by
-  sorry
+  apply le_of_not_gt
+  intro h'
+  linarith [h _ h']
 
 end
 

@@ -81,16 +81,23 @@ section
 variable {α : Type*} (P : α → Prop) (Q : Prop)
 
 example (h : ¬∃ x, P x) : ∀ x, ¬P x := by
-  sorry
+  intro x px
+  apply h
+  use x
 
 example (h : ∀ x, ¬P x) : ¬∃ x, P x := by
-  sorry
+  rintro ⟨a, px⟩
+  apply h a px
 
 example (h : ¬∀ x, P x) : ∃ x, ¬P x := by
   sorry
 
 example (h : ∃ x, ¬P x) : ¬∀ x, P x := by
-  sorry
+  intro h'
+  rcases h with ⟨a, npx⟩
+  apply npx
+  apply h'
+
 
 example (h : ¬∀ x, P x) : ∃ x, ¬P x := by
   by_contra h'

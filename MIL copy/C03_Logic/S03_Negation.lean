@@ -90,7 +90,12 @@ example (h : ∀ x, ¬P x) : ¬∃ x, P x := by
   apply h a px
 
 example (h : ¬∀ x, P x) : ∃ x, ¬P x := by
-  sorry
+  by_contra h'
+  apply h
+  intro x
+  show P x
+  by_contra npx
+  exact h' ⟨x, npx⟩
 
 example (h : ∃ x, ¬P x) : ¬∀ x, P x := by
   intro h'
@@ -108,10 +113,11 @@ example (h : ¬∀ x, P x) : ∃ x, ¬P x := by
   exact h' ⟨x, h''⟩
 
 example (h : ¬¬Q) : Q := by
-  sorry
+  apply not_not.mp h
 
 example (h : Q) : ¬¬Q := by
-  sorry
+  by_contra nQ
+  apply nQ h
 
 end
 
@@ -119,7 +125,15 @@ section
 variable (f : ℝ → ℝ)
 
 example (h : ¬FnHasUb f) : ∀ a, ∃ x, f x > a := by
-  sorry
+  intro a
+  by_contra nh
+  apply h
+  use a
+  intro x
+  apply le_of_not_gt
+  intro h'
+  apply nh
+  use x
 
 example (h : ¬∀ a, ∃ x, f x > a) : FnHasUb f := by
   push_neg at h

@@ -145,7 +145,9 @@ example (h : ¬FnHasUb f) : ∀ a, ∃ x, f x > a := by
   exact h
 
 example (h : ¬Monotone f) : ∃ x y, x ≤ y ∧ f y < f x := by
-  sorry
+  rw [Monotone] at h
+  push_neg at h
+  exact h
 
 example (h : ¬FnHasUb f) : ∀ a, ∃ x, f x > a := by
   contrapose! h

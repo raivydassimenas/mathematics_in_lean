@@ -193,10 +193,17 @@ variable (a b c : α)
 
 example : ¬a < a := by
   rw [lt_iff_le_not_ge]
-  sorry
+  push_neg
+  intro h
+  exact h
 
 example : a < b → b < c → a < c := by
   simp only [lt_iff_le_not_ge]
-  sorry
+  rintro ⟨h₁, h₂⟩ ⟨h₃, h₄⟩
+  constructor
+  · apply le_trans h₁ h₃
+  · intro h₅
+    apply h₂
+    apply le_trans h₃ h₅
 
 end

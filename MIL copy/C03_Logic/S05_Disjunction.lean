@@ -71,7 +71,11 @@ theorem neg_le_abs_self (x : ℝ) : -x ≤ |x| := by
   · rw [abs_of_neg h]
 
 theorem abs_add (x y : ℝ) : |x + y| ≤ |x| + |y| := by
-  sorry
+  rcases le_or_gt 0 (x + y) with h | h
+  · rw [abs_of_nonneg h]
+    linarith [le_abs_self x, le_abs_self y]
+  · rw [abs_of_neg h]
+    linarith [neg_le_abs_self x, neg_le_abs_self y]
 
 theorem lt_abs : x < |y| ↔ x < y ∨ x < -y := by
   sorry

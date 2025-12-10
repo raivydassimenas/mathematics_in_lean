@@ -97,7 +97,25 @@ theorem lt_abs : x < |y| ↔ x < y ∨ x < -y := by
     exact h₃
 
 theorem abs_lt : |x| < y ↔ -y < x ∧ x < y := by
-  sorry
+  rcases le_or_gt 0 x with h | h
+  · rw [abs_of_nonneg h]
+    constructor
+    intro h₁
+    constructor
+    linarith
+    exact h₁
+    intro h₂
+    rcases h₂ with ⟨h₃, h₄⟩
+    exact h₄
+  · rw [abs_of_neg h]
+    constructor
+    intro h₁
+    constructor
+    linarith
+    linarith
+    intro h₁
+    rcases h₁ with ⟨h₂, h₃⟩
+    linarith
 
 end MyAbs
 

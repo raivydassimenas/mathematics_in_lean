@@ -136,13 +136,27 @@ example {m n k : ℕ} (h : m ∣ n ∨ m ∣ k) : m ∣ n * k := by
     apply dvd_mul_right
 
 example {z : ℝ} (h : ∃ x y, z = x ^ 2 + y ^ 2 ∨ z = x ^ 2 + y ^ 2 + 1) : z ≥ 0 := by
-  sorry
+  rcases h with ⟨x, y, rfl | rfl⟩ <;> linarith [sq_nonneg x, sq_nonneg y]
 
 example {x : ℝ} (h : x ^ 2 = 1) : x = 1 ∨ x = -1 := by
-  sorry
+  rcases le_or_gt 0 x with h₁ | h₁
+  · constructor
+    nlinarith
+  · apply Or.inr
+    nlinarith
 
 example {x y : ℝ} (h : x ^ 2 = y ^ 2) : x = y ∨ x = -y := by
-  sorry
+  rcases le_or_gt 0 x with h₁ | h₁
+  · rcases le_or_gt 0 y with h₂ | h₂
+    · apply Or.inl
+      nlinarith
+    · apply Or.inr
+      nlinarith
+  · rcases le_or_gt 0 y with h₂ | h₂
+    · apply Or.inr
+      nlinarith
+    · apply Or.inl
+      nlinarith
 
 section
 variable {R : Type*} [CommRing R] [IsDomain R]

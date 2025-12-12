@@ -163,10 +163,27 @@ variable {R : Type*} [CommRing R] [IsDomain R]
 variable (x y : R)
 
 example (h : x ^ 2 = 1) : x = 1 ∨ x = -1 := by
-  sorry
+  have h' : x ^ 2 - 1 = 0 := by rw [h, sub_self]
+  have h'' : (x + 1) * (x - 1) = 0 := by
+    rw [← h']
+    ring
+  rcases eq_zero_or_eq_zero_of_mul_eq_zero h'' with h''' | h'''
+  · right
+    exact eq_neg_iff_add_eq_zero.mpr h'''
+  · left
+    exact eq_of_sub_eq_zero h'''
 
 example (h : x ^ 2 = y ^ 2) : x = y ∨ x = -y := by
-  sorry
+  have h₁ : x ^ 2 - y ^ 2 = 0 := by rw [h, sub_self]
+  have h₂ : (x + y) * (x - y) = 0 := by
+    rw [← h₁]
+    ring
+  rcases eq_zero_or_eq_zero_of_mul_eq_zero h₂ with h₃ | h₃
+  · right
+    exact eq_neg_iff_add_eq_zero.mpr h₃
+  · left
+    exact eq_of_sub_eq_zero h₃
+
 
 end
 
